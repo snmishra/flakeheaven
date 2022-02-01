@@ -1,3 +1,5 @@
+from pathlib import Path
+
 # external
 from flake8.formatting.base import BaseFormatter
 
@@ -9,7 +11,7 @@ class BaseLineFormatter(BaseFormatter):
     def format(self, error):
         filename = error.filename
         return make_baseline(
-            path=filename,
+            path=Path(filename),
             code=error.code,
             line=error.line_number,
             context=error.physical_line,

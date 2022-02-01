@@ -37,6 +37,7 @@ class FlakeHeavenCheckersManager(Manager):
         if baseline:
             with open(baseline) as stream:
                 self.baseline = {line.strip() for line in stream}
+            self.root_path = Path(baseline).resolve().parent
         super().__init__(**kwargs)
 
     def make_checkers(self, paths: List[str] = None) -> None:
@@ -233,7 +234,7 @@ class FlakeHeavenCheckersManager(Manager):
             # skip baselined errors
             if self.baseline:
                 digest = make_baseline(
-                    path=filename,
+                    path=Path(filename).relative_to(self.root_path),
                     context=result.line,
                     code=result.error_code,
                     line=result.line_number,
