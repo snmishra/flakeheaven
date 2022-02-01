@@ -210,7 +210,7 @@ def test_baseline(capsys, tmp_path: Path):
     code_path = tmp_path / 'example.py'
     code_path.write_text('a\nb\n')
     with chdir(tmp_path):
-        result = main(['baseline', str(code_path)])
+        result = main(['baseline', str(code_path.relative_to(tmp_path))])
     assert result == (0, '')
     captured = capsys.readouterr()
     assert captured.err == ''
