@@ -233,8 +233,11 @@ class FlakeHeavenCheckersManager(Manager):
 
             # skip baselined errors
             if self.baseline:
+                _path = Path(filename)
+                if _path.is_relative_to(self.root_path):
+                    _path = _path.relative_to(self.root_path)
                 digest = make_baseline(
-                    path=Path(filename).relative_to(self.root_path),
+                    path=_path,
                     context=result.line,
                     code=result.error_code,
                     line=result.line_number,
