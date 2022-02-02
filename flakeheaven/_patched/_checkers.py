@@ -34,6 +34,7 @@ class FlakeHeavenCheckersManager(Manager):
 
     def __init__(self, baseline: Optional[str], **kwargs):
         self.baseline = set()
+        self.relative = kwargs.pop("relative", False)
         if baseline:
             with open(baseline) as stream:
                 self.baseline = {line.strip() for line in stream}
@@ -234,7 +235,7 @@ class FlakeHeavenCheckersManager(Manager):
             # skip baselined errors
             if self.baseline:
                 _path = Path(filename)
-                if _path.is_relative_to(self.root_path):
+                if self.relative and _path.is_relative_to(self.root_path):
                     _path = _path.relative_to(self.root_path)
                 digest = make_baseline(
                     path=_path,

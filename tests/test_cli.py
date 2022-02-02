@@ -205,12 +205,16 @@ def test_exceptions_stdin(capsys, tmp_path: Path):
     assert captured.out.strip() == "example.py:2:1: F821 undefined name 'a'"
 
 
+@pytest.mark.parametrize('relative', [True, False])
 @patch('sys.argv', ['flakeheaven'])
-def test_baseline(capsys, tmp_path: Path):
+def test_baseline(capsys, tmp_path: Path, relative: bool):
     code_path = tmp_path / 'example.py'
     code_path.write_text('a\nb\n')
     with chdir(tmp_path):
-        result = main(['baseline', str(code_path.relative_to(tmp_path))])
+        result = main([
+            'baseline',
+            str(code_path.relative_to(tmp_path)) if relative else str(code_path),
+        ])
     assert result == (0, '')
     captured = capsys.readouterr()
     assert captured.err == ''
@@ -220,12 +224,15 @@ def test_baseline(capsys, tmp_path: Path):
     line_path = tmp_path / 'baseline.txt'
     line_path.write_text(hashes[0])
     with chdir(tmp_path):
-        result = main([
+        args = [
             'lint',
             '--baseline', str(line_path),
             '--format', 'default',
             str(code_path),
-        ])
+        ]
+        if relative:
+            args.insert(-1, '--relative')
+        result = main(args)
     assert result == (1, '')
     captured = capsys.readouterr()
     assert captured.err == ''
