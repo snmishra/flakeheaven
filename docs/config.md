@@ -67,6 +67,7 @@ max_line_length=90
 FlakeHeaven provides a few additional options that aren't supported by the original flake8. They can be specified as everything else, in config or as CLI flags.
 
 + `--baseline` -- path to [baseline](commands/baseline) file.
++ `--relative` -- Treat file paths as relative to directory containing baseline file.
 + `--safe` -- suppress exceptions from plugins. In that case, the exception will be converted into `E902` error.
 
 ## Ignored options
