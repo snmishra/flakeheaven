@@ -26,6 +26,13 @@ class Result(NamedTuple):
     text: str
     line: str
 
+def is_relative_to(path: Path, maybe_parent: Path):
+    try:
+        path.relative_to(maybe_parent)
+    except ValueError:
+        return False
+    else:
+        return True
 
 class FlakeHeavenCheckersManager(Manager):
     """
@@ -235,7 +242,7 @@ class FlakeHeavenCheckersManager(Manager):
             # skip baselined errors
             if self.baseline:
                 _path = Path(filename)
-                if self.relative and _path.is_relative_to(self.root_path):
+                if self.relative and is_relative_to(_path, self.root_path):
                     _path = _path.relative_to(self.root_path)
                 digest = make_baseline(
                     path=_path,
