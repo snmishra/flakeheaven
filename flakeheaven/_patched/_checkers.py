@@ -26,6 +26,7 @@ class Result(NamedTuple):
     text: str
     line: str
 
+
 def is_relative_to(path: Path, maybe_parent: Path):
     try:
         path.relative_to(maybe_parent)
@@ -34,6 +35,7 @@ def is_relative_to(path: Path, maybe_parent: Path):
     else:
         return True
 
+
 class FlakeHeavenCheckersManager(Manager):
     """
     Patched flake8.checker.Manager to provide `plugins` support
@@ -41,7 +43,7 @@ class FlakeHeavenCheckersManager(Manager):
 
     def __init__(self, baseline: Optional[str], **kwargs):
         self.baseline = set()
-        self.relative = kwargs.pop("relative", False)
+        self.relative = kwargs.pop('relative', False)
         if baseline:
             with open(baseline) as stream:
                 self.baseline = {line.strip() for line in stream}

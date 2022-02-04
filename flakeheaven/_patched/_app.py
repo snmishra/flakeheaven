@@ -54,7 +54,8 @@ class FlakeHeavenApplication(Application):
         """
         group = manager.parser.add_argument_group('FlakeHeaven')
         group.add_argument('--baseline', help='path to baseline')
-        group.add_argument('--relative', action='store_true', help='Treat file paths as relative to directory containing baseline file')
+        group.add_argument('--relative', action='store_true',
+                           help='Treat file paths as relative to directory containing baseline file')
         group.add_argument('--safe', action='store_true', help='suppress exceptions from plugins')
         self._option_manager = manager
 
