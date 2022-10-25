@@ -1,3 +1,9 @@
+## 3.1.0 (2022-10-25)
+
+### Feat
+
+- **logic**: Allow `base` config to use "~" (HOME)
+
 ## 3.0.0 (2022-08-01)
 
 ### Fix
