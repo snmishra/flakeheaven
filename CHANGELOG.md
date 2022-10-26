@@ -1,3 +1,9 @@
+## 3.2.0 (2022-10-26)
+
+### Feat
+
+- **lint**: enable flag to check for missing plugins
+
 ## 3.1.0 (2022-10-25)
 
 ### Feat
