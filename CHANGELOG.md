@@ -1,3 +1,9 @@
+## 3.2.1 (2022-11-04)
+
+### Fix
+
+- disable plugin execution when '-*' is used as exception
+
 ## 3.2.0 (2022-10-26)
 
 ### Feat
